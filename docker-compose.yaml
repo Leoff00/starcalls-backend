@@ -7,14 +7,14 @@ services:
     environment:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PWD}"
-      POSTGRES_DB: PG_Q_DB
+      POSTGRES_DB: "PG_Q_DB"
       PG_DATA: /var/lib/postgresql/data
     networks:
       - postgres
     ports:
       - 5432:5432
     volumes:
-      - .docker/pg_wallet/:/var/lib/postgresql/data
+      - .docker/pg_questions/:/var/lib/postgresql/data
       - .docker:/docker-entrypoint-initdb.d
 
 networks:
