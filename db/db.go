@@ -47,12 +47,12 @@ func GetDatabase() *gorm.DB {
 	return db
 }
 
-func CloseDB(db *gorm.DB) {
+func CloseDB(db *gorm.DB) error {
 	exitDB, err := db.DB()
 
 	if err != nil {
 		log.Fatal("Failed in opening db", err.Error())
 	}
 
-	exitDB.Close()
+	return exitDB.Close()
 }

@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 	"github.com/starcalls-backend/db"
 	"github.com/starcalls-backend/models"
 )
@@ -19,15 +20,14 @@ func PostQuestions(c *fiber.Ctx) error {
 		return c.SendStatus(http.StatusBadRequest)
 	}
 
+	q.Q_ID = uuid.New()
 	errCreate := db.GetDatabase().Create(&q).Error
 
 	if errCreate != nil {
 		c.Status(http.StatusBadRequest).JSON(
-			&fiber.Map{"message": "could not create book"})
+			&fiber.Map{"message": "Could not create a new question"})
 		return errCreate
 	}
 
-	defer db.CloseDB(db.GetDatabase())
 	return c.Status(http.StatusCreated).JSON(q)
-
 }
